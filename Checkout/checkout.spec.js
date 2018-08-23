@@ -1,4 +1,4 @@
-const Checkout = require(".");
+const Checkout = require("./checkout");
 
 describe("checkout", () => {
   it("should do price correctly", () => {
