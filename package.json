@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start":"node index.js",
-    "debug": "node --inspect-brk index.js"
+    "test":"jest"
   },
-  "author": "",
+  "author": "bochen2014@yahoo.com",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.1",

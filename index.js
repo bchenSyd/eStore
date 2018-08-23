@@ -37,7 +37,7 @@ const doCheckout = async () => {
     const { item, confirm } = scannedItem;
     if (item === start_checkout) {
       if (confirm) {
-        // user confirm to checkout
+        // user confirmed to checkout
         const total = checkout.total();
         console.log(
           chalk.cyan(
