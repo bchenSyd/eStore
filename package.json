@@ -1,0 +1,14 @@
+{
+  "name": "shoppingrus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "debug": "node --inspect-brk index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^6.1.0"
+  }
+}
