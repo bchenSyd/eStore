@@ -1,6 +1,8 @@
 const { prompt, Separator } = require("inquirer");
 const chalk = require("chalk");
 
+const products = require("./Checkout/products");
+
 const no_more_items = "NO MORE ITEMS";
 const checkout = async () => {
   const items = [];
@@ -10,18 +12,7 @@ const checkout = async () => {
         type: "list",
         name: "item",
         message: "select an item from the list",
-        choices: [
-          no_more_items,
-          new Separator(),
-          {
-            name: "ipad",
-            value: 549.99
-          },
-          {
-            name: "mackbook",
-            value: 1399.99
-          }
-        ],
+        choices: [no_more_items, new Separator(), ...products],
         pageSize: 4 //choices.length,
       },
       {
@@ -48,7 +39,7 @@ const checkout = async () => {
     if (item === no_more_items) {
       if (confirm) {
         // todo: calculate amount paylable
-        console.log(chalk.cyan('thank you for shopping with us'));
+        console.log(chalk.cyan("thank you for shopping with us"));
       } else {
         //user cancelled
         console.log(chalk.grey("operation cancelled"));
