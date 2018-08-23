@@ -1,4 +1,5 @@
 const { prompt, Separator } = require("inquirer");
+const chalk = require("chalk");
 
 const no_more_items = "NO MORE ITEMS";
 const checkout = async () => {
@@ -33,15 +34,25 @@ const checkout = async () => {
       {
         type: "expand",
         name: "confirm",
-        message:"checkout? ",
+        message: "checkout? ",
         default: 2, // avoid accidental checkout
-        choices: [{ key: "y", name: "Yes", value: true }, { key: "n", name: "No", value: false }],
+        choices: [
+          { key: "y", name: "Yes", value: true },
+          { key: "n", name: "No", value: false }
+        ],
         when: ({ item }) => item === no_more_items
-      },
+      }
     ]);
 
-    const { item, amount } = scannedItem;
+    const { item, amount, confirm } = scannedItem;
     if (item === no_more_items) {
+      if (confirm) {
+        // todo: calculate amount paylable
+        console.log(chalk.cyan('thank you for shopping with us'));
+      } else {
+        //user cancelled
+        console.log(chalk.grey("operation cancelled"));
+      }
       break;
     }
   }
