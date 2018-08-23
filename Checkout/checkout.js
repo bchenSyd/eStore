@@ -9,11 +9,13 @@ class Checkout {
     this.items.push(item);
   }
   total() {
+    debugger;
     const priceTotal = this.items.reduce(
-      (priceTotal, { price, amount }) => priceTotal + price * amount,
+      (priceTotal, { price }) => priceTotal + price,
       0
     );
     const reductionTotal = this.pricingRules.reduce((reductions, priceRule) => {
+      debugger;
       const reduction = priceRule.apply(this.items);
       return reductions + reduction;
     }, 0);

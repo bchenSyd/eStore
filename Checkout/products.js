@@ -1,3 +1,5 @@
+// should come from database
+
 const products = [
   {
     sku: "ipd",

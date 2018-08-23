@@ -1,37 +1,25 @@
 const chalk = require("chalk");
 const { prompt, Separator } = require("inquirer");
 const { Checkout, Products } = require("./Checkout");
-
+const { pricingRules } = require("./config");
 const start_checkout = "CHECK OUT";
 
-// normalize products for UI (also called a UI adapter)
+// normalize products for displaying in UI (also called a model adapter)
 const products = Products.map(p => ({
   name: p.name,
   value: { ...p }
 }));
 
-const pricingRules = [
-  new Three4Two()
-]
-
-const checkout = async () => {
-  const checkout = new Checkout();
+const doCheckout = async () => {
+  const checkout = new Checkout(pricingRules);
   while (true) {
     const scannedItem = await prompt([
       {
         type: "list",
         name: "item",
-        message: "please choose and item :",
+        message: "scan an item (choose from the list) :",
         choices: [...products, new Separator(), start_checkout],
         pageSize: products.length + 2
-      },
-      {
-        type: "input",
-        name: "amount",
-        message: "please enter the amount :",
-        filter: amt => Number(amt),
-        validate: amt => (isNaN(amt) ? "please enter a valid amount" : true),
-        when: ({ item }) => item !== start_checkout
       },
       {
         type: "expand",
@@ -46,13 +34,14 @@ const checkout = async () => {
       }
     ]);
 
-    const { item, amount, confirm } = scannedItem;
+    const { item, confirm } = scannedItem;
     if (item === start_checkout) {
       if (confirm) {
-        const amountPayable = checkout.total();
+        // user confirm to checkout
+        const total = checkout.total();
         console.log(
           chalk.cyan(
-            `total payable is ${amountPayable}. Thank you for shopping with us`
+            `total payable is ${total}. Thank you for shopping with us`
           )
         );
       } else {
@@ -61,8 +50,9 @@ const checkout = async () => {
       }
       break;
     }
-    checkout.scan({ ...item, amount });
+
+    checkout.scan(item);
   }
 };
 
-checkout();
+doCheckout();

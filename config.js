@@ -9,11 +9,13 @@ const { Products } = require("./Checkout");
 
 const pricingRules = [
   new Three4Two(Products.find(p => p.sku === "atv")),
-  new BulkDiscount(Products.find(p => p.sku === "ipad"), 499.99),
+  new BulkDiscount(Products.find(p => p.sku === "ipd"), 4, 499.99),
   new FreeBundle(
     Products.find(p => p.sku === "mbp"),
     Products.find(p => p.sku === "vga")
   )
 ];
 
-module.exports = pricingRules;
+module.exports = {
+  pricingRules
+};
